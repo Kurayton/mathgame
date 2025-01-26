@@ -2,46 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Ensures proper mobile rendering and touch zooming -->
+  <title>Random Math Quiz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robust Math Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="app">
-    <h1>Math Quiz</h1>
-    
     <!-- Start Screen -->
     <div id="start-screen" class="screen active">
-      <p>Enter your name to begin:</p>
-      <input type="text" id="player-name" placeholder="Your name" />
-      <button id="start-quiz-btn">Start Quiz</button>
-      <div class="error-message" id="start-error-msg"></div>
+      <h1>Random Math Quiz</h1>
+      <div class="card">
+        <label for="player-name">Enter your name:</label>
+        <input type="text" id="player-name" placeholder="Your name" />
+        
+        <label for="difficulty-select">Select difficulty:</label>
+        <select id="difficulty-select">
+          <option value="easy">Easy (0-10)</option>
+          <option value="medium">Medium (0-50)</option>
+          <option value="hard">Hard (0-100)</option>
+        </select>
+
+        <label for="question-count">Number of questions:</label>
+        <input type="number" id="question-count" value="5" min="1" max="50" />
+
+        <button id="start-quiz-btn">Start Quiz</button>
+        <div class="error-message" id="start-error-msg"></div>
+      </div>
     </div>
-    
+
     <!-- Quiz Screen -->
     <div id="quiz-screen" class="screen">
-      <div id="question-container"></div>
-      <div id="answers-container"></div>
+      <h2 id="question-heading">Question X of Y</h2>
+      <div class="card">
+        <p id="question-text"></p>
+        <div id="answers-container"></div>
+      </div>
       <button id="next-button" class="hidden">Next</button>
-      <div class="error-message" id="quiz-error-msg"></div>
     </div>
-    
-    <!-- Loading/Error Screen -->
-    <div id="loading-screen" class="screen">
-      <p id="loading-text">Loading questions...</p>
-      <button id="retry-button" class="hidden">Retry Fetch</button>
-    </div>
-    
+
     <!-- Result Screen -->
     <div id="result-screen" class="screen">
-      <h2>Quiz Finished!</h2>
-      <p id="score-text"></p>
-      <p id="best-score-text"></p>
-      <button id="play-again-btn">Play Again</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <div class="card">
+        <h2>Quiz Finished!</h2>
+        <p id="score-text"></p>
+        <p id="best-score-text"></p>
+        <but
