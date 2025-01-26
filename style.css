@@ -1,25 +1,21 @@
+/* Global Reset & Basic Styles */
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
-  color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
   height: 100%;
+  color: #333;
 }
 
+/* App Container */
 #app {
   max-width: 600px;
   margin: 40px auto;
-  background: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2, p {
-  margin: 16px 0;
-}
-
+/* Screens (hidden by default) */
 .screen {
   display: none;
 }
@@ -28,42 +24,97 @@ h1, h2, p {
   display: block;
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
+/* Card Style */
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
 }
 
-#start-screen input {
+/* Headings */
+h1, h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fff; /* Some contrast over the gradient background */
+}
+
+#question-heading {
+  color: #fff;
+}
+
+/* Labels & Inputs */
+label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
   padding: 8px;
   font-size: 16px;
-  margin-right: 8px;
-  width: 60%;
+  margin-bottom: 1rem;
   box-sizing: border-box;
 }
 
+/* Buttons */
 button {
-  cursor: pointer;
-  background-color: #007bff;
+  background-color: #5563DE;
   color: #fff;
   border: none;
-  padding: 10px 16px;
+  padding: 12px 20px;
   font-size: 16px;
-  margin-top: 8px;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  margin-top: 10px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #3742a2;
+}
+
+button:active {
+  opacity: 0.8;
 }
 
 .hidden {
   display: none !important;
 }
 
+/* Answers Container */
 #answers-container button {
   display: block;
-  margin: 8px 0;
   width: 100%;
   text-align: left;
+  margin: 0.5rem 0;
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#answers-container button:hover {
+  background-color: #ddd;
+}
+
+/* Error Messages */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Result Screen Text */
+#result-screen p {
+  margin: 1rem 0;
+}
+
+/* Make the main heading stand out */
+#start-screen h1 {
+  margin-bottom: 0;
 }
