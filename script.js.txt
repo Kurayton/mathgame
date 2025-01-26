@@ -1,0 +1,168 @@
+// Global quiz data
+let questions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let playerName = "";
+
+/**
+ * 1. Load questions from questions.json (asynchronously)
+ * 2. If playerName stored in localStorage, prefill it
+ */
+window.addEventListener("DOMContentLoaded", () => {
+  fetch("questions.json")
+    .then((response) => response.json())
+    .then((data) => {
+      questions = data;
+    })
+    .catch((error) => console.error("Error loading questions.json:", error));
+
+  // Check if we have a stored name
+  const storedName = localStorage.getItem("playerName");
+  if (storedName) {
+    document.getElementById("player-name").value = storedName;
+  }
+
+  setupEventHandlers();
+});
+
+/**
+ * Sets up button click listeners, etc.
+ */
+function setupEventHandlers() {
+  const startQuizBtn = document.getElementById("start-quiz-btn");
+  const nextButton = document.getElementById("next-button");
+  const playAgainBtn = document.getElementById("play-again-btn");
+
+  startQuizBtn.addEventListener("click", startQuiz);
+  nextButton.addEventListener("click", nextQuestion);
+  playAgainBtn.addEventListener("click", restartQuiz);
+}
+
+/**
+ * Start the quiz:
+ * - Grab player name
+ * - Save to localStorage
+ * - Hide start screen, show quiz screen
+ * - Initialize quiz variables
+ * - Show the first question
+ */
+function startQuiz() {
+  playerName = document.getElementById("player-name").value.trim();
+
+  if (!playerName) {
+    alert("Please enter a name before starting the quiz.");
+    return;
+  }
+
+  localStorage.setItem("playerName", playerName);
+
+  // Reset quiz state
+  currentQuestionIndex = 0;
+  score = 0;
+
+  // Switch screens
+  document.getElementById("start-screen").classList.remove("active");
+  document.getElementById("quiz-screen").classList.add("active");
+
+  showQuestion();
+}
+
+/**
+ * Load and display the current question + answers.
+ */
+function showQuestion() {
+  const questionContainer = document.getElementById("question-container");
+  const answersContainer = document.getElementById("answers-container");
+  const nextButton = document.getElementById("next-button");
+
+  questionContainer.innerHTML = "";
+  answersContainer.innerHTML = "";
+
+  const currentQuestion = questions[currentQuestionIndex];
+  if (!currentQuestion) return;
+
+  // Display question
+  const questionElem = document.createElement("h2");
+  questionElem.textContent = currentQuestion.question;
+  questionContainer.appendChild(questionElem);
+
+  // Display answers
+  currentQuestion.answers.forEach((answer, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = answer;
+    btn.addEventListener("click", () => checkAnswer(index));
+    answersContainer.appendChild(btn);
+  });
+
+  // Hide Next button until an answer is chosen
+  nextButton.classList.add("hidden");
+}
+
+/**
+ * When a user clicks on an answer, check correctness,
+ * increment score if correct, and reveal the Next button.
+ */
+function checkAnswer(selectedIndex) {
+  const currentQuestion = questions[currentQuestionIndex];
+  if (selectedIndex === currentQuestion.correctIndex) {
+    score++;
+    alert("Correct!");
+  } else {
+    const correctAnswer =
+      currentQuestion.answers[currentQuestion.correctIndex];
+    alert(`Incorrect! The correct answer is: ${correctAnswer}`);
+  }
+
+  // Show Next button
+  const nextButton = document.getElementById("next-button");
+  nextButton.classList.remove("hidden");
+}
+
+/**
+ * Move to the next question, or show results if we've reached the end.
+ */
+function nextQuestion() {
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    // No more questions, show result screen
+    showResults();
+  }
+}
+
+/**
+ * Display final score and best score, switch screens.
+ */
+function showResults() {
+  document.getElementById("quiz-screen").classList.remove("active");
+  document.getElementById("result-screen").classList.add("active");
+
+  const scoreText = document.getElementById("score-text");
+  scoreText.textContent = `You answered ${score} out of ${questions.length} questions correctly, ${playerName}!`;
+
+  // Check best score in localStorage
+  const bestScoreKey = `bestScore_${playerName}`;
+  const bestScore = parseInt(localStorage.getItem(bestScoreKey)) || 0;
+
+  if (score > bestScore) {
+    localStorage.setItem(bestScoreKey, score);
+  }
+
+  const bestScoreText = document.getElementById("best-score-text");
+  const newBestScore = Math.max(score, bestScore);
+  bestScoreText.textContent = `Your best score so far: ${newBestScore}`;
+}
+
+/**
+ * Restart quiz from the result screen.
+ */
+function restartQuiz() {
+  document.getElementById("result-screen").classList.remove("active");
+  document.getElementById("quiz-screen").classList.add("active");
+
+  currentQuestionIndex = 0;
+  score = 0;
+  showQuestion();
+}

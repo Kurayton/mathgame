@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Math Quiz for My Daughter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <h1>Math Quiz</h1>
+    
+    <!-- Start Screen / Name Entry -->
+    <div id="start-screen" class="screen active">
+      <p>Enter your name to begin:</p>
+      <input type="text" id="player-name" placeholder="Your name" />
+      <button id="start-quiz-btn">Start Quiz</button>
+    </div>
+    
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="screen">
+      <div id="question-container"></div>
+      <div id="answers-container"></div>
+      <button id="next-button" class="hidden">Next</button>
+    </div>
+    
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen">
+      <h2>Quiz Finished!</h2>
+      <p id="score-text"></p>
+      <p id="best-score-text"></p>
+      <button id="play-again-btn">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

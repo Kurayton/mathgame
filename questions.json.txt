@@ -1,0 +1,27 @@
+[
+  {
+    "question": "What is 2 + 2?",
+    "answers": ["1", "2", "4", "5"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is 5 × 3?",
+    "answers": ["8", "15", "10", "20"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is 10 − 7?",
+    "answers": ["1", "2", "3", "4"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is 12 ÷ 4?",
+    "answers": ["3", "4", "6", "8"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is 9 + 6?",
+    "answers": ["14", "15", "16", "17"],
+    "correctIndex": 1
+  }
+]
